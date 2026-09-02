@@ -1,7 +1,7 @@
 import { VentureProfile, InvestorSession } from "@/types";
 
 interface HotLeadPayload {
-  reason: "escalation" | "high_engagement";
+  reason: "escalation" | "high_engagement" | "new_visit";
   venture: VentureProfile;
   session: InvestorSession;
   detail: string;
@@ -20,10 +20,11 @@ export function getGhlLocationId(ventureId: string): string | undefined {
   return (envKey && process.env[envKey]) || process.env.GHL_LOCATION_ID || undefined;
 }
 
-// Fires a hot-lead alert to GoHighLevel (or any Zapier/Make webhook) so
-// escalated questions and highly-engaged investors land in your pipeline
-// automatically. GoHighLevel isn't a one-click connector here, but it accepts
-// direct API calls / inbound webhooks, so this hits it straight over HTTP.
+// Fires a lead alert to GoHighLevel (or any Zapier/Make webhook) so every
+// investor-room visit — not just escalated questions or high-engagement
+// sessions — lands in your pipeline automatically. GoHighLevel isn't a
+// one-click connector here, but it accepts direct API calls / inbound
+// webhooks, so this hits it straight over HTTP.
 //
 // Configure in .env.local:
 //   GHL_API_TOKEN                          -> shared Private Integration Token
@@ -36,9 +37,17 @@ export function getGhlLocationId(ventureId: string): string | undefined {
 // intentional for Midwest Budz until securities counsel signs off.
 export async function notifyHotLead(payload: HotLeadPayload): Promise<void> {
   const { reason, venture, session, detail } = payload;
-  const summary = `[${venture.name}] Hot lead: ${session.investorName}${
+  const reasonLabel =
+    reason === "escalation"
+      ? "asked an escalated question"
+      : reason === "high_engagement"
+      ? "high deck engagement"
+      : "entered the investor room";
+  const summary = `[${venture.name}] ${
+    reason === "new_visit" ? "New investor visit" : "Hot lead"
+  }: ${session.investorName}${
     session.firm ? ` (${session.firm})` : ""
-  } — ${reason === "escalation" ? "asked an escalated question" : "high deck engagement"}: "${detail}"`;
+  } — ${reasonLabel}: "${detail}"`;
 
   const token = process.env.GHL_API_TOKEN;
   const locationId = getGhlLocationId(venture.id);
@@ -58,7 +67,7 @@ export async function notifyHotLead(payload: HotLeadPayload): Promise<void> {
           name: session.investorName,
           companyName: session.firm,
           source: `Trinity IR — ${venture.name}`,
-          tags: [`hot-lead`, venture.id, reason],
+          tags: [reason === "new_visit" ? "new-visitor" : "hot-lead", venture.id, reason],
           customFields: [{ key: "last_agent_note", value: summary }],
         }),
       });
@@ -87,5 +96,5 @@ export async function notifyHotLead(payload: HotLeadPayload): Promise<void> {
   }
 
   // No CRM configured for this venture — safe no-op, logged for visibility in dev.
-  console.log("[hot-lead, no CRM configured for this venture]", summary);
+  console.log("[lead event, no CRM configured for this venture]", summary);
 }

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { getStore } from "@/lib/store";
+import { VENTURES } from "@/lib/ventures-data";
+import { notifyHotLead } from "@/lib/crm";
 import { InvestorSession } from "@/types";
 
 export async function POST(request: Request) {
@@ -26,6 +28,19 @@ export async function POST(request: Request) {
 
   const store = getStore();
   store.sessions[session.id] = session;
+
+  // Sync every investor-room entry to the CRM immediately — not just
+  // escalations or high-engagement sessions — so no visit is ever lost if
+  // this in-memory store resets on redeploy.
+  const venture = VENTURES[ventureId];
+  if (venture) {
+    notifyHotLead({
+      reason: "new_visit",
+      venture,
+      session,
+      detail: `Entered the investor room${firm ? ` from ${firm}` : ""}`,
+    }).catch(() => {});
+  }
 
   return NextResponse.json(session, { status: 201 });
 }
