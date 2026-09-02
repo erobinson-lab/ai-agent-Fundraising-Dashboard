@@ -7,27 +7,27 @@ export const VENTURES: Record<string, VentureProfile> = {
     tagline: "The universal NIL operating system — by Alvorant",
     sector: "College Sports / NIL Compliance & Fintech",
     stage: "Pre-Seed",
-    ask: "$1.75M Pre-Seed (SAFE/priced round — confirm instrument with counsel)",
+    ask: "$1.75M Pre-Seed (SAFE, $10–12M cap — confirm instrument with counsel)",
     useOfFunds:
       "Lean build to a live product with paying pilot schools; proof at month 9–12 unlocks a follow-on $5M seed at plan.",
-    slideCount: 17,
+    slideCount: 12,
     colorFrom: "from-indigo-950",
     colorTo: "to-slate-900",
     accent: "text-indigo-400",
     keyStats: [
-      { label: "TAM", value: "$594M (defensible core $338M)" },
-      { label: "SAM", value: "$406M" },
-      { label: "SOM (36mo)", value: "$13M conservative → $45M aggressive" },
+      { label: "TAM", value: "$7.5B+ (all 5,800+ institutions, NIL payment rail, HS/pro/intl expansion)" },
+      { label: "SAM", value: "$2.2B (settlement-bound schools + CPA firms + agents + active brands)" },
+      { label: "SOM (36mo)", value: "$13M conservative → $45M aggressive ARR" },
       { label: "University ACV", value: "$212K–$360K/yr" },
       { label: "Conference ACV", value: "$441K–$662K/yr" },
-      { label: "D1 athletics budgets (the real wallet)", value: "$15–20B+" },
+      { label: "Core buyers today", value: "~365 Division I programs" },
       { label: "NIL economy", value: "$2.5B (25/26) → $6B+ by 2030" },
       { label: "Take rate on athlete deals", value: "$0 — never takes a cut" },
     ],
     swot: {
       strengths: [
         "Neutral, no-cut model vs. deal-cut marketplaces (Opendorse, Playfly) — structural trust moat",
-        "End-to-end workflow (contract → cap → payment → tax) no competitor covers fully",
+        "End-to-end workflow (contract → compliance → payment → tax) no competitor covers fully",
         "Targets the $15-20B athletics operating budget, not the smaller athlete-money pool",
       ],
       weaknesses: [
@@ -63,7 +63,7 @@ export const VENTURES: Record<string, VentureProfile> = {
         keywords: ["revenue model", "pricing", "acv", "how do you make money"],
         question: "Walk me through the revenue model.",
         answer:
-          "Universities pay a flat, value-based subscription ($150K base + usage, landing $212K–$360K/yr) — below the $250-500K in point tools it replaces. Conferences pay $441K–$662K/yr. Beyond institutions, 20+ paying constituencies (agencies, brands, accounting, media, licensing, data) plus a thin, capped per-receipt payment rail add layered revenue without taking a cut of athlete deals.",
+          "Universities pay a flat, value-based subscription ($150K base + usage, landing $212K–$360K/yr) — below the $500K–$1M in point tools it replaces. Conferences pay $441K–$662K/yr. Beyond institutions, 20+ paying constituencies (agencies, brands, accounting, media, licensing, data) plus a thin, capped per-receipt payment rail add layered revenue without taking a cut of athlete deals.",
       },
       {
         keywords: ["sales cycle", "school", "university", "close", "procurement"],
@@ -75,7 +75,7 @@ export const VENTURES: Record<string, VentureProfile> = {
         keywords: ["use of funds", "runway", "how much", "raise amount", "pre-seed"],
         question: "What does the $1.75M actually fund?",
         answer:
-          "A lean build to a live product with paying pilot schools, proving the model with roughly 18-20 institutions before the $5M seed (already planned) is raised at proof around month 9-12. This is a capital-efficient, staged path rather than a single large upfront raise.",
+          "55% engineering & product, 17% security/compliance/ops (SOC 2, FERPA), 16% legal architecture & content (attorney-verified library), 12% pilots & GTM — buying 2–3 design-partner schools live in production, SOC 2 Type I + FERPA architecture complete, and $2M+ ARR signed toward a Series A position within 12–18 months.",
       },
     ],
     complianceNote:
